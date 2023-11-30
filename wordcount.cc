@@ -4,7 +4,7 @@
 #include <iostream>
 
 WordCount::WordCount(int sz) {
-    // COMPLETE
+    hashTable.resize(sz);
 }
 
 int WordCount::hash(string s) {

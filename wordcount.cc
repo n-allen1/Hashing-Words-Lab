@@ -7,9 +7,12 @@ WordCount::WordCount(int sz) {
     hashTable.resize(sz);
 }
 
+// Returns the hash using STL's built-in hash template
 int WordCount::hash(string s) {
-    // COMPLETE
-    return 0; // not correct
+    std::hash<string> hashing;
+    size_t hash_value = hashing(s);
+
+    return static_cast<int>(hash_value);
 }
 
 int WordCount::count(string word) {

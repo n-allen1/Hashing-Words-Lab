@@ -16,7 +16,14 @@ int WordCount::hash(string s) {
 }
 
 int WordCount::count(string word) {
-    // COMPLETE
+    int checkCount = hash(word);
+    for (const auto& hashPair : hashTable[checkCount])
+    {
+        if (hashPair.first == word)
+        {
+            return hashPair.second;
+        }
+    }
     return 0; // not correct
 }
 

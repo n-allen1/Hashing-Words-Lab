@@ -1,5 +1,7 @@
 #include "wordcount.h"
 
+#include <fstream>
+#include <unordered_map>
 #include <algorithm>
 #include <iostream>
 
@@ -24,9 +26,26 @@ int WordCount::count(string word) {
     return 0; // not correct
 }
 
-void WordCount::add(string word) {
-    // COMPLETE
+void WordCount::add(std::string word) {
+    int checkCount = hash(word);
+
+    auto& list = hashTable[checkCount];
+    
+    auto it = std::find_if(list.begin(), list.end(), [&word](const std::pair<std::string, int>& pair) 
+    {
+        return pair.first == word;
+    });
+
+    if (it != list.end()) 
+    {
+        // If the word is found, increment its count
+        it->second++;
+    } else {
+        // If the word is not found, add a new pair with count 1
+        list.push_back({word, 1});
+    }
 }
+
 
 void WordCount::print() {
     std::vector<std::pair<string, int>> words;
@@ -39,5 +58,15 @@ void WordCount::print() {
 }
 
 void printFileWordCount(string filename, int tableSize) {
-    // COMPLETE
+    std::unordered_map<std::string, int> wordCount;
+    
+    std::ifstream file(filename);
+
+    std::string word;
+    while (file >> word) 
+    {
+        wordCount[word]++;
+    }
+
+    file.close();
 }
